@@ -36,8 +36,9 @@
 				<div style="padding-top: 30px" class="panel-body">
 
 					<!-- Login Form -->
-					<!-- Make sure use Spring MVC Form tag -->
-					<form:form action="${pageContext.request.contextPath}/authenticateTheUser" 
+					<!-- Make sure use Spring MVC Form tag(form:form) as CSRF Token will be automatically added -->
+					<!-- If not need to do it manually -->
+					<form action="${pageContext.request.contextPath}/authenticateTheUser" 
 							   method="POST" class="form-horizontal">
 
 					    <!-- Place for messages: error, alert etc ... -->
@@ -89,8 +90,14 @@
 								<button type="submit" class="btn btn-success">Login</button>
 							</div>
 						</div>
+						
+						<!-- Need to manually adding tokens if did not use Spring MVC Form tag(form:form)  -->
 
-					</form:form>
+						<input type="hidden"
+							   name="${_csrf.parameterName}"
+							   value="${_csrf.token}" />
+
+					<form>
 
 				</div>
 
