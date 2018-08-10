@@ -36,8 +36,13 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 				.loginPage("/showMyLoginPage") //show our custom form at request mapping /showMyLoginPage
 				.loginProcessingUrl("/authenticateTheUser") //login form should post data to this url for processing
-				.permitAll(); //allow everyone to see the login page, no need to login
-		
+				.permitAll() //allow everyone to see the login page, no need to login
+				.and() //add logout support for default url /logout
+				.logout().permitAll();
+		//logut URL logic will be handled by Spring Security Filter 
+		//which will invalidate user's HTTP session and remove session cookies
+		//and append a log out parameter ?logout
+		//no coding required
 	}
 }
 
