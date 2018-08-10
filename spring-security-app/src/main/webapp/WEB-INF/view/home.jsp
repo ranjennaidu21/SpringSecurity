@@ -1,7 +1,7 @@
 <html>
 
 <head>
-	<title>Spring Security Home Page</title>
+	<title>Spring Security Home Page </title>
 </head>
 
 <body>

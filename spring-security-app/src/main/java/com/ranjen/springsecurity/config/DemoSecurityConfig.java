@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
+	//method to configure users(in memory,database,ldap etc)
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		// add our users for in memory authentication
@@ -25,6 +26,19 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 			.withUser(users.username("susan").password("test123").roles("ADMIN"));
 	}
 	
+	//method to configure security of web paths in application,login,logout etc
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+
+		http.authorizeRequests()
+				.anyRequest().authenticated() //any request must be loggedin/authenticated
+			.and()
+			.formLogin()
+				.loginPage("/showMyLoginPage") //show our custom form at request mapping /showMyLoginPage
+				.loginProcessingUrl("/authenticateTheUser") //login form should post data to this url for processing
+				.permitAll(); //allow everyone to see the login page, no need to login
+		
+	}
 }
 
 
