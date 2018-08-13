@@ -21,9 +21,10 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 		UserBuilder users = User.withDefaultPasswordEncoder();
 		
 		auth.inMemoryAuthentication()
-			.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
-			.withUser(users.username("mary").password("test123").roles("MANAGER"))
-			.withUser(users.username("susan").password("test123").roles("ADMIN"));
+		//comma-delimeted list of roles , you can have any names for roles
+		.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
+		.withUser(users.username("mary").password("test123").roles("EMPLOYEE", "MANAGER"))
+		.withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));
 	}
 	
 	//method to configure security of web paths in application,login,logout etc

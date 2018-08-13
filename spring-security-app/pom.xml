@@ -66,6 +66,14 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		
+<!-- 		for Spring Security JSP Tag library which give support for 
+		jsp custom tag which give access to user id and roles -->
+				<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		    <version>${springsecurity.version}</version>
+		</dependency>
 
 	</dependencies>
 
