@@ -27,6 +27,31 @@
 		<!-- by default Spring Security uses(ROLE_*) prefixes , this is configurable -->
 	</p>
 	
+	<!-- DISPLAY CONTENTS BASED ON ROLE -->
+	<!-- Show tis content only for manager role -->
+	<security:authorize access="hasRole('MANAGER')">
+	
+		<!-- Add a link to point to /leaders ... this is for the managers -->
+		
+		<p>
+			<a href="${pageContext.request.contextPath}/leaders">Leadership Meeting</a>
+			(Only for Manager peeps)
+		</p>
+
+	</security:authorize>	
+	
+	
+	<security:authorize access="hasRole('ADMIN')">  
+		<!-- Show tis content only for admin role -->
+		<!-- Add a link to point to /systems ... this is for the admins -->
+		
+		<p>
+			<a href="${pageContext.request.contextPath}/systems">IT Systems Meeting</a>
+			(Only for Admin peeps)
+		</p>
+	
+	</security:authorize>
+	
 	<hr>
 	
 	<!-- Add a logout button -->

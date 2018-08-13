@@ -30,8 +30,10 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 	//method to configure security of web paths in application,login,logout etc
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-		http.authorizeRequests()
+		
+		//without specific roles. just user being the authenticated - as commented below
+/*		
+ 			http.authorizeRequests()
 				.anyRequest().authenticated() //any request must be loggedin/authenticated
 			.and()
 			.formLogin()
@@ -40,10 +42,29 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll() //allow everyone to see the login page, no need to login
 				.and() //add logout support for default url /logout
 				.logout().permitAll();
+*/
+		
+		
+		//restrict access based on specific roles
+		http.authorizeRequests()
+		.antMatchers("/").hasRole("EMPLOYEE") //homepage 
+		.antMatchers("/leaders/**").hasRole("MANAGER") //** means all subdirectories
+		.antMatchers("/systems/**").hasRole("ADMIN")
+		.and()
+		.formLogin()
+			.loginPage("/showMyLoginPage")
+			.loginProcessingUrl("/authenticateTheUser") //custom page access denied
+			.permitAll()
+		.and()
+		.logout().permitAll()
+		.and()
+		.exceptionHandling().accessDeniedPage("/access-denied");
 		//logut URL logic will be handled by Spring Security Filter 
 		//which will invalidate user's HTTP session and remove session cookies
 		//and append a log out parameter ?logout
 		//no coding required
+		
+		
 	}
 }
 
