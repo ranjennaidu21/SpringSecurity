@@ -1,5 +1,8 @@
 package com.ranjen.springsecurity.config;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,20 +14,30 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 @Configuration
 @EnableWebSecurity
 public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	// add a reference to our security data source
+	//This reffering to the bean declared in the DemoAppConfig
+	@Autowired
+	private DataSource securityDataSource;
 
 	@Override
 	//method to configure users(in memory,database,ldap etc)
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-		// add our users for in memory authentication
+		// hardcoded - add our users for in memory authentication
 		
-		UserBuilder users = User.withDefaultPasswordEncoder();
+/*		UserBuilder users = User.withDefaultPasswordEncoder();
 		
 		auth.inMemoryAuthentication()
 		//comma-delimeted list of roles , you can have any names for roles
 		.withUser(users.username("john").password("test123").roles("EMPLOYEE"))
 		.withUser(users.username("mary").password("test123").roles("EMPLOYEE", "MANAGER"))
-		.withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));
+		.withUser(users.username("susan").password("test123").roles("EMPLOYEE", "ADMIN"));*/
+		
+		//No more hardcoding users as now we will get the username and roles from the db
+		
+		// use jdbc authentication
+		auth.jdbcAuthentication().dataSource(securityDataSource);
 	}
 	
 	//method to configure security of web paths in application,login,logout etc
