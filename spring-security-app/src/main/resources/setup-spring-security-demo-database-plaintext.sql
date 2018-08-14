@@ -12,7 +12,7 @@ USE `spring_security_demo_plaintext`;
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(68) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -51,5 +51,11 @@ VALUES
 ('mary','ROLE_MANAGER'),
 ('susan','ROLE_EMPLOYEE'),
 ('susan','ROLE_ADMIN');
+
+--update the password in the db for susan usng bcrypt algorithm from 
+--https://www.dailycred.com/article/bcrypt-calculator
+--try login using susan as password for user susan
+UPDATE `spring_security_demo_plaintext`.`users` SET `password` = '{bcrypt}$2a$04$azgyYzDNVbaxYSbb8hKLNuuMAKTIR.VzdHs0kqZB47qqRiInIjVhy' WHERE (`username` = 'susan');
+
 
 
