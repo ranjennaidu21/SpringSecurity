@@ -88,6 +88,15 @@
 		    <artifactId>spring-security-taglibs</artifactId>
 		    <version>${springsecurity.version}</version>
 		</dependency>
+		
+		<!-- Hibernate Validator  
+		to add some basic validation rules to the registration form 
+		to make sure the user name and password are not empty-->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>6.0.7.Final</version>
+		</dependency>
 
 	</dependencies>
 
